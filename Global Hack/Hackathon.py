@@ -2,6 +2,7 @@ import csv
 import matplotlib.pyplot as plt
 import pylab as py
 import numpy as np
+import matplotlib
 
 
 def call_data(data):
@@ -190,16 +191,17 @@ def veteran_status_chart():
     ax.set_xticklabels(('G1', 'G2', 'G3', 'G4', 'G5'))
     
     ax.legend((rects1[0], rects2[0]), ('Men', 'Women')) 
-
-fig = py.figure()
-x = [1, 2, 3, 4, 5]
-y = [4, 7, 6, 5, 6]
-ax = fig.add_axes([0.0, 0.1, 0.8, 0.8])
-ax.bar(x, y, align='center')
-ax.set_xticks(x)
-ax.set_xticklabels(['Native American', 'Asian', 'African American', 'Native Hispanic', 'White'])
-f.show()
-
+def race_chart():
+    fig = py.figure()
+    x = [1, 3, 5, 7, 9]
+    y = [4, 7, 6, 5, 6]
+    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+    ax.bar(x, y, align='center')
+    ax.set_xticks(x)
+    ax.set_xticklabels(['Native American', 'Asian American', 'African American', 'Native Hispanic', 'Caucasian'])
+    matplotlib.rc('xtick', labelsize=1) 
+    fig.show()
+    
 def autolabel(rects):
     # attach some text labels
     for rect in rects:
