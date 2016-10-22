@@ -3,6 +3,19 @@ import matplotlib.pyplot as plt
 import pylab as py
 import numpy as np
 
+
+def call_data(data):
+    out = []
+    #list with valid dictionary
+    with open(data) as f:
+        reader = csv.reader(f)
+        out.append(reader[0])
+    with open(data, newline='') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            out.append(row)
+    return out
+'''
 def call_client():
     out = []
     with open('Sample Dataset - Client.csv', newline='') as f:
@@ -74,7 +87,8 @@ def call_services():
         for row in reader:
             out.append(row)
         return out
-'''    
+'''
+'''
 # Matplotlib
 n_bins = 10
 x = np.random.randn(1000, 3)
@@ -89,7 +103,6 @@ ax0.hist(x_multi, n_bins, histtype='bar')
 ax0.set_title('Chart 1')
 ax0.set_xlabel('X Axis 1')
 ax0.set_ylabel('Y Axis 1')
-ax0.axis([0,20,0,20])
 
 ax1.hist(x_multi, n_bins, histtype='bar')
 ax1.set_title('Chart 2')
@@ -121,7 +134,10 @@ ax6.set_title('Chart 7')
 ax6.set_xlabel('X Axis 7')
 ax6.set_ylabel('Y Axis 7')
 
+ax7labels=['jan','feb','mar','apr']
+ax7.xticks(x, ax7labels)
 ax7.hist(x_multi, n_bins, histtype='bar')
+ax7.set_
 ax7.set_title('Chart 8')
 ax7.set_xlabel('X Axis 8')
 ax7.set_ylabel('Y Axis 8')
@@ -129,9 +145,38 @@ ax7.set_ylabel('Y Axis 8')
 plt.tight_layout()
 plt.show()
 '''
-DayOfWeekOfCall = [1,2,3]
-DispatchesOnThisWeekday = [77, 32, 42]
-LABELS = ["Monday", "Tuesday", "Wednesday"]
-py.bar(DayOfWeekOfCall, DispatchesOnThisWeekday)
-py.xticks(DayOfWeekOfCall, LABELS)
-py.show()
+#Gender Chart
+
+def gender_chart():
+    Male = (20, 35, 10)
+
+    ind = np.arange(3)  # number of variables on x
+    width = 0.35       # the width of the bars
+
+    fig, ax = plt.subplots()
+    rects1 = ax.bar(ind, Male, width, color='b', yerr = 1)
+
+    Female = (25, 32, 10)
+    rects2 = ax.bar(ind + width, Female, width, color='y', yerr=1)
+
+    # add some text for labels, title and axes ticks
+    ax.set_ylabel('Gender')
+    ax.set_xlabel('X Axis')
+    ax.set_title('Gender')
+    ax.set_xticks(ind + width)
+    ax.set_xticklabels(('Male', 'Female', 'Other'))
+
+    ax.legend((rects1[0], rects2[0]), ('Male', 'Female'))
+
+def autolabel(rects):
+    # attach some text labels
+    for rect in rects:
+        height = rect.get_height()
+        ax.text(rect.get_x() + rect.get_width()/2., 1.05*height,
+            '%d' % int(height),
+            ha='center', va='bottom')
+
+        autolabel(rects1)
+        autolabel(rects2)
+        plt.show()
+            
