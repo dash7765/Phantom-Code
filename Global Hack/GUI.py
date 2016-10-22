@@ -1,4 +1,6 @@
-#from Hackathon import gender_chart
+#import Hackathon
+#taken out... for some reason it stops the GUI from loading
+
 import tkinter
 
 def break_fix_gender():
