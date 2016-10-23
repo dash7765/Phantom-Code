@@ -225,6 +225,16 @@ def prior_residence_chart():
     matplotlib.rc('xtick', labelsize=1) 
     fig.show()
     
+def domestic_abuse_chart():
+        fig = py.figure()
+        x = [1, 2, 3]
+        y = [356, 41, 33]
+        ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+        ax.bar(x, y, align='center')
+        ax.set_xticks(x)
+        ax.set_xticklabels(['Yes','No', 'Doesn\'t Know'])
+        matplotlib.rc('xtick', labelsize=1) 
+        fig.show()    
 '''   
 def autolabel(rects):
     # attach some text labels
