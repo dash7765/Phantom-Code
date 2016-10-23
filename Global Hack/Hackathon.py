@@ -3,7 +3,28 @@ import matplotlib.pyplot as plt
 import pylab as py
 import numpy as np
 import matplotlib
+import xlrd
 
+# Pulls values from Client Dataset.xlsx cells
+def find_cell_client(column, row):
+    book = xlrd.open_workbook("Client Dataset.xlsx") # Sets what file it will get the data from
+    first_sheet = book.sheet_by_index(0) # Makes sure data is taken from the first sheet
+    particular_cell_value = first_sheet.cell(column,row).value #gives value to a variable
+    return particular_cell_value
+
+# Pulls values from EmploymentEducation.xlsx cells
+def find_cell_employment(column, row):
+    book = xlrd.open_workbook("EmploymentEducation Dataset.xlsx")
+    first_sheet = book.sheet_by_index(0)
+    particular_cell_value = first_sheet.cell(column,row).value
+    return particular_cell_value
+
+# Pulls values from HealthAndDV.xlsx cells
+def find_cell_health(column, row):
+    book = xlrd.open_workbook("HealthAndDV Dataset.xlsx")
+    first_sheet = book.sheet_by_index(0)
+    particular_cell_value = first_sheet.cell(column,row).value
+    return particular_cell_value
 
 def call_data(data):
     out = []
@@ -17,6 +38,7 @@ def call_data(data):
             out.append(row)
     return out
 '''
+#Removed because we called the data in graphs instead
 def call_client():
     out = []
     with open('Sample Dataset - Client.csv', newline='') as f:
@@ -88,8 +110,8 @@ def call_services():
         for row in reader:
             out.append(row)
         return out
-'''
-'''
+
+#Failed Attempt To make histograms
 # Matplotlib
 n_bins = 10
 x = np.random.randn(1000, 3)
@@ -146,71 +168,58 @@ ax7.set_ylabel('Y Axis 8')
 plt.tight_layout()
 plt.show()
 '''
-#Gender Chart
-
+# Makes a chart compaing number of males and females
 def gender_chart():
-    Male = (20, 35, 10)
+        fig = py.figure() # Makes the table
+        x = [1, 2] # Set number of variables on x
+        y = [find_cell_client(303,15), find_cell_client(305,15)] # Calls values from specific cells from Client Dataset.xlsx
+        ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+        ax.bar(x, y, align='center') #Centers chart so data can be seen
+        ax.set_title('Gender of Homeless') # Gives a title
+        ax.set_ylabel('Number of People') # Labels the Y - Axis
+        ax.set_xlabel('Gender') # Lables the X - Axis
+        ax.set_xticks(x) # Allows to list strings on X - Axis
+        ax.set_xticklabels(['Male', 'Female']) # Sets strings on X - Axis
+        fig.show() # Shows the graph
 
-    ind = np.arange(3)  # number of variables on x
-    width = 0.35       # the width of the bars
-
-    fig, ax = plt.subplots()
-    rects1 = ax.bar(ind, Male, width, color='b', yerr = 1)
-
-    Female = (25, 32, 10)
-    rects2 = ax.bar(ind + width, Female, width, color='y', yerr=1)
-
-    # add some text for labels, title and axes ticks
-    ax.set_ylabel('Gender')
-    ax.set_xlabel('X Axis')
-    ax.set_title('Gender')
-    ax.set_xticks(ind + width)
-    ax.set_xticklabels(('Male', 'Female', 'Other'))
-
-    ax.legend((rects1[0], rects2[0]), ('Male', 'Female'))
-    
+# See gender_chart() for reference of code for any of the other charts    
 def veteran_status_chart():
-    N = 5
-    menMeans = (20, 35, 30, 35, 27)
-    menStd = (2, 3, 4, 1, 2)
-
-    ind = np.arange(N)  # the x locations for the groups
-    width = 0.35       # the width of the bars
-
-    fig, ax = plt.subplots()
-    rects1 = ax.bar(ind, menMeans, width, color='r', yerr=menStd)
-
-    womenMeans = (25, 32, 34, 20, 25)
-    womenStd = (3, 5, 2, 3, 3)
-    rects2 = ax.bar(ind + width, womenMeans, width, color='y', yerr=womenStd)
-
-    # add some text for labels, title and axes ticks
-    ax.set_ylabel('Scores')
-    ax.set_title('Scores by group and gender')
-    ax.set_xticks(ind + width)
-    ax.set_xticklabels(('G1', 'G2', 'G3', 'G4', 'G5'))
+    fig = py.figure()
+    x = [1, 2]
+    y = [find_cell_client(303,17), find_cell_client(305,15)]
+    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+    ax.bar(x, y, align='center')
+    ax.set_title('Homeless Veterans')
+    ax.set_ylabel('Number of People')
+    ax.set_xlabel('Veteran Status')
+    ax.set_xticks(x)
+    ax.set_xticklabels(['Veteran', 'Not Veteran'])
+    fig.show()    
     
-    ax.legend((rects1[0], rects2[0]), ('Men', 'Women')) 
 def race_chart():
     fig = py.figure()
     x = [1, 3, 5, 7, 9]
-    y = [2, 0, 181, 0, 119]
+    y = [find_cell_client(303,9), find_cell_client(303,10), find_cell_client(303,11), find_cell_client(303,12), find_cell_client(303,13)]
     ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
     ax.bar(x, y, align='center')
+    ax.set_title('Races of Homeless')
+    ax.set_ylabel('Number of People')
+    ax.set_xlabel('Race')
     ax.set_xticks(x)
     ax.set_xticklabels(['Native American', 'Asian American', 'African American', 'Native Hispanic', 'Caucasian'])
-    matplotlib.rc('xtick', labelsize=1) 
     fig.show()
     
 def employment_chart():
         fig = py.figure()
         x = [1, 2, 3]
-        y = [27, 8, 157]
+        y = [find_cell_employment(194,6), find_cell_employment(196,6), find_cell_employment(198,6)]
         ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
         ax.bar(x, y, align='center')
+        ax.set_title('Employment of Homeless')
+        ax.set_ylabel('Number of People')
+        ax.set_xlabel('Employment Status')
         ax.set_xticks(x)
         ax.set_xticklabels(['Not Employed', 'Employed', 'Client Unsure'])
-        matplotlib.rc('xtick', labelsize=1) 
         fig.show()
 
 def prior_residence_chart():
@@ -222,20 +231,23 @@ def prior_residence_chart():
     ax.bar(x, y, align='center')
     ax.set_xticks(x)
     ax.set_xticklabels(['Homeless Situation','Institutional Care', 'Transitional And Permenant Housing Situation'])
-    matplotlib.rc('xtick', labelsize=1) 
     fig.show()
     
 def domestic_abuse_chart():
         fig = py.figure()
         x = [1, 2, 3]
-        y = [356, 41, 33]
+        y = [find_cell_health(434,4), find_cell_health(432,4), find_cell_health(436,4)]
         ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
         ax.bar(x, y, align='center')
+        ax.set_title('Domestic Abuse In Homeless')
+        ax.set_ylabel('Number of People')
+        ax.set_xlabel('Domestic Abuse Victim')
         ax.set_xticks(x)
         ax.set_xticklabels(['Yes','No', 'Doesn\'t Know'])
-        matplotlib.rc('xtick', labelsize=1) 
         fig.show()    
-'''   
+'''
+Removed because code that used it was removed
+Lined up the text on the bargraphs
 def autolabel(rects):
     # attach some text labels
     for rect in rects:
