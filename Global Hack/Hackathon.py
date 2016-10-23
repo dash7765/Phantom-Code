@@ -214,7 +214,18 @@ def employment_chart():
         fig.show()
 
 def prior_residence_chart():
- '''   
+    
+    fig = py.figure()
+    x = [1, 2, 3]
+    y = [179, 1, 117]
+    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+    ax.bar(x, y, align='center')
+    ax.set_xticks(x)
+    ax.set_xticklabels(['Homeless Situation','Institutional Care', 'Transitional And Permenant Housing Situation'])
+    matplotlib.rc('xtick', labelsize=1) 
+    fig.show()
+    
+'''   
 def autolabel(rects):
     # attach some text labels
     for rect in rects:
