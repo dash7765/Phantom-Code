@@ -194,7 +194,7 @@ def veteran_status_chart():
 def race_chart():
     fig = py.figure()
     x = [1, 3, 5, 7, 9]
-    y = [4, 7, 6, 5, 6]
+    y = [2, 0, 181, 0, 119]
     ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
     ax.bar(x, y, align='center')
     ax.set_xticks(x)
@@ -202,6 +202,19 @@ def race_chart():
     matplotlib.rc('xtick', labelsize=1) 
     fig.show()
     
+def employment_chart():
+        fig = py.figure()
+        x = [1, 2, 3]
+        y = [27, 8, 157]
+        ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+        ax.bar(x, y, align='center')
+        ax.set_xticks(x)
+        ax.set_xticklabels(['Not Employed', 'Employed', 'Client Unsure'])
+        matplotlib.rc('xtick', labelsize=1) 
+        fig.show()
+
+def prior_residence_chart():
+ '''   
 def autolabel(rects):
     # attach some text labels
     for rect in rects:
@@ -212,5 +225,5 @@ def autolabel(rects):
 
         autolabel(rects1)
         autolabel(rects2)
-        plt.show()
+        plt.show()'''
         
